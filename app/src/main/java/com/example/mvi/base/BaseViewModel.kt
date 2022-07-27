@@ -15,10 +15,13 @@ abstract class BaseViewModel<S,A>(State:S) {
     abstract fun onAction(action:A)
 
 
-    fun setState(state:S){
-        viewState.value=state
-    }
 
+//    fun setState(state:S){
+//        viewState.value=state
+//    }
+    fun setState(reduce:S.()->S){
+        viewState.value=state.reduce()
+    }
     @Composable
     fun bind(): State<S> {
         return vState.collectAsState()

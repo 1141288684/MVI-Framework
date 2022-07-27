@@ -29,11 +29,15 @@ import com.example.mvi.base.BaseViewModel
 //    }
 //
 //}
+//data class CounterState(val count: Int = 0) : MavericksState
+//class CounterViewModel(initialState: CounterState) : MavericksViewModel<CounterState>(initialState) {
+//    fun incrementCount() = setState { copy(count = count + 1) }
+//}
 class MainViewModel : BaseViewModel<MainViewState, MainAction>(MainViewState()){
     override fun onAction(action: MainAction) {
         when(action){
             MainAction.Add->{
-                setState(state.copy(int = state.int+1))
+                setState{copy(int = state.int+1)}
             }
         }
     }
