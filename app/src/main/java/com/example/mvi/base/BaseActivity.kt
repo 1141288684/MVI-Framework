@@ -13,13 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.Lifecycle
 
 
-abstract class BaseActivity<S,A>() :ComponentActivity(),BaseView{
+abstract class BaseActivity<S,A> :ComponentActivity(),BaseView{
     private lateinit var viewModel: BaseViewModel<S, A>
     abstract fun setViewModel():BaseViewModel<S,A>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
             viewModel=setViewModel()
             val state by viewModel.bind()
