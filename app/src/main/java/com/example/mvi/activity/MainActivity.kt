@@ -1,56 +1,35 @@
 package com.example.mvi.activity
 
+import android.Manifest
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.lifecycleScope
 import com.example.mvi.base.BaseActivity
+import com.example.mvi.base.BaseViewModel
 import com.example.mvi.ui.theme.MVITheme
 import com.example.mvi.viewmodel.*
 
-class MainActivity : BaseActivity<MainViewState, MainAction>(MainViewModel()) {
-//    val viewModel = MainViewModel()
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//        setContent {
-//            val viewState by viewModel.viewState.collectAsState()
-//
-//            MVITheme {
-//                // A surface container using the 'background' color from the theme
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colorScheme.background
-//                ) {
-//                    Column() {
-//                        Greeting("Android")
-//                        Text(text = viewState.int.toString())
-//                        Button(onClick = { doAction(MainAction.Add) }) {
-//                            Text(text = "加一")
-//                        }
-//                    }
-//
-//                }
-//            }
-//        }
-//    }
+class MainActivity : BaseActivity<MainViewState, MainAction>() {
 
-//    override fun doAction(action: MainAction){
-//        lifecycleScope.launch {
-//            viewModel.onAction(action)
-//        }
-//    }
-
-
+    override fun setViewModel(): BaseViewModel<MainViewState, MainAction> {
+        return MainViewModel(this)
+    }
 
     @Composable
     override fun Build(state:MainViewState) {
+        requestPermissions(arrayOf(Manifest.permission.INTERNET),1)
         Column {
             Text(text = state.int.toString())
             Button(onClick = { doAction(MainAction.Add) }) {
                 Text(text = "加一")
             }
+            Button(onClick = { doAction(MainAction.Http) }) {
+                Text(text = "测试框架及https通信")
+            }
+            Text(text = state.text)
         }
     }
 }

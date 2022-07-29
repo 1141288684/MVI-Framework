@@ -1,6 +1,11 @@
 package com.example.mvi.viewmodel
 
+import androidx.lifecycle.lifecycleScope
+import com.example.mvi.base.BaseView
 import com.example.mvi.base.BaseViewModel
+import com.example.mvi.model.HttpUtils
+import com.example.mvi.service.TestService
+import kotlinx.coroutines.launch
 
 //class MainViewModel:ViewModel() {
 //
@@ -33,11 +38,17 @@ import com.example.mvi.base.BaseViewModel
 //class CounterViewModel(initialState: CounterState) : MavericksViewModel<CounterState>(initialState) {
 //    fun incrementCount() = setState { copy(count = count + 1) }
 //}
-class MainViewModel : BaseViewModel<MainViewState, MainAction>(MainViewState()){
+class MainViewModel(view:BaseView) : BaseViewModel<MainViewState, MainAction>(view,MainViewState()){
     override fun onAction(action: MainAction) {
         when(action){
             MainAction.Add->{
-                setState{copy(int = state.int+1)}
+                setState{copy(int = _state.int+1)}
+            }
+            MainAction.Http->{
+                lifecycleScope.launch {
+                    val map=HttpUtils.getService(view.getContext(),TestService::class.java).test()
+                    setState { copy(text=map.toString()) }
+                }
             }
         }
     }
@@ -45,9 +56,10 @@ class MainViewModel : BaseViewModel<MainViewState, MainAction>(MainViewState()){
 }
 enum class MainAction{
     Add,
+    Http
 }
 data class MainViewState(
     val isLoading:Boolean=false,
-    val int: Int=0
-
+    val int: Int=0,
+    val text:String=""
 )
