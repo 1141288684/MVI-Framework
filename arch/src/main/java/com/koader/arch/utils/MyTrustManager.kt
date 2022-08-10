@@ -1,12 +1,13 @@
-package com.example.mvi.model
+package com.koader.arch.utils
 
 //import java.security.cert.X509Certificate
 import android.annotation.SuppressLint
 import android.content.Context
-import com.example.mvi.R
 import okhttp3.OkHttpClient
+import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
+import java.io.OutputStream
 import java.math.BigInteger
 import java.security.KeyStore
 import java.security.SecureRandom
@@ -22,22 +23,15 @@ import javax.net.ssl.*
 class MyTrustManager:X509TrustManager {
 
     companion object{
-        const val PUB_KEY:String="MIICJzCCAc2gAwIBAgIQAOaCcCwhdaRnNGkn56WOazAKBggqhkjOPQQDAjAYMRYw\n" +
-                "FAYDVQQDDA0xOTIuMTY4LjEuMTE5MB4XDTIyMDcyOTA2NTYyMFoXDTIzMDcyOTA2\n" +
-                "NTYyMFowGDEWMBQGA1UEAwwNMTkyLjE2OC4xLjExOTBZMBMGByqGSM49AgEGCCqG\n" +
-                "SM49AwEHA0IABMLr/+jf9CheUbkGej8CnZFFKFtGBjgrVWQ/QRhluMr1A+bKQx8L\n" +
-                "hSz5AuSu30IsUTy+4bVii4dYMI91zVnTVvyjgfgwgfUwVQYDVR0RBE4wTIIMbS5r\n" +
-                "b2FkZXIudG9wgg53d3cua29hZGVyLnRvcIIQY2xvdWQua29hZGVyLnRvcIIObmFz\n" +
-                "LmtvYWRlci50b3CHBH8AAAGHBMCoAXcwHQYDVR0OBBYEFO9c/uRaMeDWqI3/KvUO\n" +
-                "dghTrKPPMA4GA1UdDwEB/wQEAwIBhjAPBgNVHRMBAf8EBTADAQH/MDsGA1UdJQQ0\n" +
-                "MDIGCCsGAQUFBwMCBggrBgEFBQcDAQYIKwYBBQUHAwMGCCsGAQUFBwMEBggrBgEF\n" +
-                "BQcDCDAfBgNVHSMEGDAWgBTvXP7kWjHg1qiN/yr1DnYIU6yjzzAKBggqhkjOPQQD\n" +
-                "AgNIADBFAiAAjPaPgX1spk0Aizn8k/ZWABGLu97UArZe7MlJgrqBqAIhAPHUoqJx\n" +
-                "tOWd9EwKI0LvBT4rhp3MQSPc4Cz1d/iv2A7F"
+        private lateinit var PUB_KEY:String
 
-        fun onHttpCertificate(context: Context,builder: OkHttpClient.Builder){
-            getSSLSocketFactoryForOneWay(context.resources.openRawResource(R.raw.media))?.let {
-                builder.sslSocketFactory(it,MyTrustManager()).hostnameVerifier(HostnameVerifier { hostname, _ -> return@HostnameVerifier hostname==GlobalConfig.domain })
+        fun onHttpCertificate(ins:InputStream,builder: OkHttpClient.Builder){
+            PUB_KEY=GlobalConfig.instance.getConfig(GlobalConfig.BaseConfig::class.java)!!.pub_key
+            getSSLSocketFactoryForOneWay(ins)?.let {
+                builder.sslSocketFactory(it,
+                    MyTrustManager()
+                ).hostnameVerifier(HostnameVerifier { hostname, _ -> return@HostnameVerifier hostname== GlobalConfig.instance.getConfig(
+                    GlobalConfig.BaseConfig::class.java)!!.domain })
             }
         }
         /**

@@ -1,4 +1,4 @@
-package com.example.mvi.base
+package com.koader.arch.base
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State

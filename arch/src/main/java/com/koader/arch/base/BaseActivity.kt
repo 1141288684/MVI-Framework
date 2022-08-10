@@ -1,4 +1,4 @@
-package com.example.mvi.base
+package com.koader.arch.base
 
 import android.content.Context
 import android.os.Bundle
@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.Lifecycle
-
 
 abstract class BaseActivity<S,A> :ComponentActivity(),BaseView{
     private lateinit var viewModel: BaseViewModel<S, A>

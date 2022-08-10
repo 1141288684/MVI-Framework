@@ -1,11 +1,12 @@
 package com.example.mvi.viewmodel
 
 import androidx.lifecycle.lifecycleScope
-import com.example.mvi.base.BaseView
-import com.example.mvi.base.BaseViewModel
-import com.example.mvi.model.HttpUtils
+import com.koader.arch.base.BaseView
+import com.koader.arch.base.BaseViewModel
 import com.example.mvi.service.TestService
+import com.koader.arch.utils.HttpUtils
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 //class MainViewModel:ViewModel() {
 //
@@ -38,7 +39,7 @@ import kotlinx.coroutines.launch
 //class CounterViewModel(initialState: CounterState) : MavericksViewModel<CounterState>(initialState) {
 //    fun incrementCount() = setState { copy(count = count + 1) }
 //}
-class MainViewModel(view:BaseView) : BaseViewModel<MainViewState, MainAction>(view,MainViewState()){
+class MainViewModel(view:BaseView) : BaseViewModel<MainViewState, MainAction>(view, MainViewState()){
     override fun onAction(action: MainAction) {
         when(action){
             MainAction.Add->{
@@ -46,8 +47,8 @@ class MainViewModel(view:BaseView) : BaseViewModel<MainViewState, MainAction>(vi
             }
             MainAction.Http->{
                 lifecycleScope.launch {
-                    val map=HttpUtils.getService(view.getContext(),TestService::class.java).test()
-                    setState { copy(text=map.toString()) }
+                    val map= HttpUtils.getService(TestService::class.java).test()
+                    setState { copy(text=map.name) }
                 }
             }
         }

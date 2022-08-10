@@ -1,4 +1,4 @@
-package com.example.mvi.model
+package com.koader.arch.utils
 
 class Setting (data:Any,vararg arguments:Any){
     val data:Any
