@@ -25,13 +25,12 @@ class MyTrustManager:X509TrustManager {
     companion object{
         private lateinit var PUB_KEY:String
 
-        fun onHttpCertificate(ins:InputStream,builder: OkHttpClient.Builder){
-            PUB_KEY=GlobalConfig.instance.getConfig(GlobalConfig.BaseConfig::class.java)!!.pub_key
+        fun onHttpCertificate(ins:InputStream,builder: OkHttpClient.Builder,config: GlobalConfig.BaseConfig){
+            PUB_KEY=config.pub_key!!
             getSSLSocketFactoryForOneWay(ins)?.let {
                 builder.sslSocketFactory(it,
                     MyTrustManager()
-                ).hostnameVerifier(HostnameVerifier { hostname, _ -> return@HostnameVerifier hostname== GlobalConfig.instance.getConfig(
-                    GlobalConfig.BaseConfig::class.java)!!.domain })
+                ).hostnameVerifier(HostnameVerifier { hostname, _ -> return@HostnameVerifier hostname== config.domain })
             }
         }
         /**

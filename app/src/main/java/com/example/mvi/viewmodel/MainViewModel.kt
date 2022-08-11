@@ -6,7 +6,6 @@ import com.koader.arch.base.BaseViewModel
 import com.example.mvi.service.TestService
 import com.koader.arch.utils.HttpUtils
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 //class MainViewModel:ViewModel() {
 //

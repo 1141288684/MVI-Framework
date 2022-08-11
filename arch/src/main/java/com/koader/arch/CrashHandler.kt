@@ -1,21 +1,8 @@
-package com.example.mvi
+package com.koader.arch
 
 import android.content.Context
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
-import android.os.Build
-import android.os.Environment
-import android.os.Looper
-import android.os.Process
-import android.util.Log
 import android.widget.Toast
-import java.io.*
-import java.lang.reflect.Field
 import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.HashMap
-
 
 class CrashHandler:Thread.UncaughtExceptionHandler{
     private val tag = "CrashHandler"
@@ -53,7 +40,7 @@ class CrashHandler:Thread.UncaughtExceptionHandler{
      */
     override fun uncaughtException(thread: Thread, ex: Throwable) {
         ex.printStackTrace()
-        Toast.makeText(mContext,ex.message,Toast.LENGTH_LONG).show()
+        Toast.makeText(mContext,ex.message, Toast.LENGTH_LONG).show()
 //        if (!handleException(ex) && mDefaultHandler != null) {
 //            //如果用户没有处理则让系统默认的异常处理器来处理
 //            mDefaultHandler!!.uncaughtException(thread, ex)

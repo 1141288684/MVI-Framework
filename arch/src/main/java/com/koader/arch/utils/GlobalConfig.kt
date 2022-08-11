@@ -54,6 +54,6 @@ class GlobalConfig private constructor(){
     data class BaseConfig(
         val url:String,
         val domain:String,
-        val pub_key:String
+        val pub_key:String?=""
     )
 }
