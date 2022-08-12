@@ -10,6 +10,13 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            credentials {
+                username '62e1fe6018a4006f4acbb145'
+                password '86LicryJ]Fq_'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2258953-release-Ln6KGF/'
+        }
     }
 }
 rootProject.name = "MVI"

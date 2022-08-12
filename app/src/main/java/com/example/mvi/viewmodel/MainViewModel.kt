@@ -1,11 +1,19 @@
 package com.example.mvi.viewmodel
 
+import android.util.Log
+import androidx.compose.runtime.mutableStateListOf
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
+import com.drake.net.Get
+import com.drake.net.NetConfig
+import com.drake.net.utils.scopeNetLife
 import com.koader.arch.base.BaseView
 import com.koader.arch.base.BaseViewModel
 import com.example.mvi.service.TestService
+import com.google.gson.Gson
 import com.koader.arch.utils.HttpUtils
 import kotlinx.coroutines.launch
+import kotlin.reflect.KClass
 
 //class MainViewModel:ViewModel() {
 //
@@ -42,13 +50,18 @@ class MainViewModel(view:BaseView) : BaseViewModel<MainViewState, MainAction>(vi
     override fun onAction(action: MainAction) {
         when(action){
             MainAction.Add->{
-                setState{copy(int = _state.int+1)}
+                _state.list?.add(1)
+                setState { copy(list = list) }
             }
             MainAction.Http->{
-                lifecycleScope.launch {
-                    val map= HttpUtils.getService(TestService::class.java).test()
-                    setState { copy(text=map.name) }
+                scopeNetLife {
+                    val map=Get<User>("").await()
+                    setState { copy(text = map.name) }
                 }
+//                lifecycleScope.launch {
+//                    val map= HttpUtils.getService(TestService::class.java).test()
+//                    setState { copy(text=map.name) }
+//                }
             }
         }
     }
@@ -61,5 +74,6 @@ enum class MainAction{
 data class MainViewState(
     val isLoading:Boolean=false,
     val int: Int=0,
-    val text:String=""
+    val text:String="",
+    val list: MutableList<Int>?= mutableStateListOf()
 )

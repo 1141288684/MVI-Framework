@@ -35,8 +35,4 @@ class HttpUtils private constructor(private val retrofit: Retrofit) {
             return ins.services[service.name] as T
         }
     }
-
-    interface Certificate{
-        fun getCertificates(resId:Int):InputStream
-    }
 }
