@@ -10,9 +10,9 @@ class MainViewModel(view:BaseView) : BaseViewModel<MainViewModel.MainViewState, 
     override fun onAction(action: MainAction) {
         when(action){
             MainAction.Add->{
-                state.int.value+="1"
-//                _state.list?.add("1")
-//                setState { copy(list = list) }
+//                state.int.value+="1"
+                state.list.add("1")
+                setState { copy(list = list) }
             }
             MainAction.Http->{
                 scopeNetLife {
@@ -32,7 +32,7 @@ class MainViewModel(view:BaseView) : BaseViewModel<MainViewModel.MainViewState, 
     }
     data class MainViewState(
         val isLoading:Boolean=false,
-        val int: MutableState<String> = initVar(""),
+        val int: String="",
         val text:String="",
         val list: MutableStateList<String> = initList()
     )

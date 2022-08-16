@@ -13,7 +13,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
@@ -93,7 +92,7 @@ class MainActivity : BaseActivity<MainViewState, MainAction>(){
         requestPermissions(arrayOf(Manifest.permission.INTERNET),1)
         Column {
             Text(text = user.name)
-            Text(text = state.int.value)
+            Text(text = state.int)
             LazyColumn(content = {
                 items(state.list){
                     Text(text = it)
