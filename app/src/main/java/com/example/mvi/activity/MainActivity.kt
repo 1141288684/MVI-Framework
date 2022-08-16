@@ -8,10 +8,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
@@ -26,40 +28,39 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.koin.android.ext.android.inject
 import org.koin.core.context.startKoin
+import com.example.mvi.viewmodel.MainViewModel.*
 
-class MineViewModel(view:BaseView):BaseViewModelMV(view){
-    var viewState: MutableLiveData<String> = MutableLiveData()
-
-//    @Composable
-//    override fun createState(content: () -> Unit) {
-//        name = remember {
-//            mutableStateOf("")
-//        }
-//    }
-
-}
 //@AndroidEntryPoint
 //class MainActivity : BaseActivityMV<MineViewModel>(){
 //
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//        setContent {
-//            Surface(modifier = Modifier.fillMaxSize()) {
-//                Column {
-//
-//                }
-//            }
-//        }
-//    }
+////    override fun onCreate(savedInstanceState: Bundle?) {
+////        super.onCreate(savedInstanceState)
+////
+////        setContent {
+////            Surface(modifier = Modifier.fillMaxSize()) {
+////                Column {
+////                    Build()
+////                }
+////            }
+////        }
+////    }
 //
 //    @Composable
 //    override fun Build() {
-//        viewModel.viewState.observe(this,this)
+//        var v by Var("")
+//        val l = mutableStateListOf<String>()
 //        Column {
-//            Text(text = v)
-//            Button(onClick = { viewModel.viewState.value=viewModel.viewState.value+1}) {
+////            Text(text = v?:"")
+////            Button(onClick = { v += 1 }) {
+////                Text(text = "测试")
+////            }
+//            Button(onClick = { l.add("1") }) {
 //                Text(text = "测试")
+//            }
+//            LazyColumn{
+//                items(l){
+//                    Text(text = it)
+//                }
 //            }
 //        }
 //    }
@@ -92,10 +93,10 @@ class MainActivity : BaseActivity<MainViewState, MainAction>(){
         requestPermissions(arrayOf(Manifest.permission.INTERNET),1)
         Column {
             Text(text = user.name)
-            Text(text = state.int.toString())
+            Text(text = state.int.value)
             LazyColumn(content = {
-                items(state.int){
-                    state.list!!.map { Text(text = it.toString()) }
+                items(state.list){
+                    Text(text = it)
                 }
             })
             Button(onClick = { doAction(MainAction.Add) }) {

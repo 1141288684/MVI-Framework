@@ -20,12 +20,13 @@ abstract class BaseActivity<S,A> :ComponentActivity(),BaseView{
         super.onCreate(savedInstanceState)
         setContent {
             viewModel=setViewModel()
-            val state by viewModel.bind()
+//            val state by viewModel.bind()
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
             ) {
-                Build(state)
+                Build(viewModel.state)
+//                Build(state = viewModel.state)
             }
         }
     }
