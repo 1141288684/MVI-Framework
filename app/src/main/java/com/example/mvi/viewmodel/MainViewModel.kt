@@ -1,6 +1,5 @@
 package com.example.mvi.viewmodel
 
-import androidx.compose.runtime.MutableState
 import com.drake.net.Get
 import com.drake.net.utils.scopeNetLife
 import com.koader.arch.base.*
@@ -12,7 +11,7 @@ class MainViewModel(view:BaseView) : BaseViewModel<MainViewModel.MainViewState, 
             MainAction.Add->{
 //                state.int.value+="1"
                 state.list.add("1")
-                setState { copy(list = list) }
+//                setState { copy(list = list) }
             }
             MainAction.Http->{
                 scopeNetLife {

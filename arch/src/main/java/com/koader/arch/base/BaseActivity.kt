@@ -26,7 +26,6 @@ abstract class BaseActivity<S,A> :ComponentActivity(),BaseView{
                 color = MaterialTheme.colorScheme.background
             ) {
                 Build(state)
-//                Build(state = viewModel.state)
             }
         }
     }

@@ -1,13 +1,9 @@
 package com.koader.arch.utils
 
-//import java.security.cert.X509Certificate
 import android.annotation.SuppressLint
-import android.content.Context
 import okhttp3.OkHttpClient
-import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
-import java.io.OutputStream
 import java.math.BigInteger
 import java.security.KeyStore
 import java.security.SecureRandom
