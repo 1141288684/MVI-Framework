@@ -14,7 +14,7 @@ abstract class BaseViewModel<S,A>(private val view:BaseView, State:S) :Lifecycle
     private val viewState: MutableStateFlow<S> = MutableStateFlow(State)
     private val vState:StateFlow<S> = viewState.asStateFlow()
 
-    val state:S
+    private val state:S
     get() = vState.value
 
     abstract fun onAction(action:A)
@@ -22,6 +22,10 @@ abstract class BaseViewModel<S,A>(private val view:BaseView, State:S) :Lifecycle
     fun setState(reduce:S.()->S){
         viewState.value=state.reduce()
     }
+
+//    fun setState(s:(S)->S){
+//        viewState.value=s(state)
+//    }
     @Composable
     fun bind(): State<S> {
         return vState.collectAsState()

@@ -9,19 +9,13 @@ class MainViewModel(view:BaseView) : BaseViewModel<MainViewModel.MainViewState, 
     override fun onAction(action: MainAction) {
         when(action){
             MainAction.Add->{
-//                state.int.value+="1"
-                state.list.add("1")
-//                setState { copy(list = list) }
+                setState { copy(list = list.apply { add("1") }) }
+
             }
             MainAction.Http->{
                 scopeNetLife {
                     val map=Get<User>("").await()
-//                    setState { copy(text = map.name) }
                 }
-//                lifecycleScope.launch {
-//                    val map= HttpUtils.getService(TestService::class.java).test()
-//                    setState { copy(text=map.name) }
-//                }
             }
         }
     }
@@ -33,7 +27,7 @@ class MainViewModel(view:BaseView) : BaseViewModel<MainViewModel.MainViewState, 
         val isLoading:Boolean=false,
         val int: String="",
         val text:String="",
-        val list: MutableStateList<String> = initList()
+        val list: MutableList<String> = initList()
     )
 }
 
