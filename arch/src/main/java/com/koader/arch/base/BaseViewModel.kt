@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-abstract class BaseViewModel<S,A>(private val view:BaseView, State:S) :LifecycleOwner{
+abstract class BaseViewModel<S:BaseState,A>(private val view:BaseView, State:S) :LifecycleOwner{
     private val viewState: MutableStateFlow<S> = MutableStateFlow(State)
     private val vState:StateFlow<S> = viewState.asStateFlow()
 
