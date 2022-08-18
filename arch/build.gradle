@@ -72,6 +72,11 @@ dependencies {
     api 'com.squareup.retrofit2:retrofit:2.9.0'
     api 'com.google.code.gson:gson:2.9.0'
     api 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    def room_version = "2.4.3"
+
+    api "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 }
 
 apply plugin: 'maven-publish'
