@@ -1,0 +1,11 @@
+# MVI-Framework
+从零开始搭建一个MVI架构框架——Android应用开发
+
+MVI架构面向的场景和优缺点这里不再赘述
+使用此应用框架开发app，view层需要继承BaseActivity，暂时没有考虑fragment或其他view，因为本框架面向的是纯compose应用
+直接使用compose框架实现view层。
+其次就是分别继承BaseViewModel和BaseState。使用BaseActivity和BaseViewModel需要指定的泛型是State和Action，Action是自定义枚举类，负责传递view层的操作到viewmodel
+
+BaseView是对view的事件的一些接口方法，暂时可能不完善。
+
+项目持续更新中
