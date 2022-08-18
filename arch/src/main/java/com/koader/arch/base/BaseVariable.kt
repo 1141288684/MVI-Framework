@@ -11,15 +11,15 @@ fun <T>initVar(v:T):MutableState<T>{
     return mutableStateOf(v)
 }
 
-fun <T>initList():MutableStateList<T>{
+fun <T>initList():MutableList<T>{
     return mutableStateListOf()
 }
-fun <T>initList(vararg elements:T):MutableStateList<T>{
+fun <T>initList(vararg elements:T):MutableList<T>{
     return mutableStateListOf(*elements)
 }
-fun <K,V>initMap():MutableStateMap<K,V>{
+fun <K,V>initMap():MutableMap<K,V>{
     return mutableStateMapOf()
 }
-fun <K,V>initMap(vararg pairs:Pair<K,V>):MutableStateMap<K,V>{
+fun <K,V>initMap(vararg pairs:Pair<K,V>):MutableMap<K,V>{
     return mutableStateMapOf(*pairs)
 }
