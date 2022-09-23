@@ -18,6 +18,7 @@ class MainViewModel(view:BaseView) : BaseViewModel<MainViewModel.MainViewState, 
             MainAction.Http->{
                 scopeNetLife {
                     val map=Get<User>("").await()
+                    setState { it.text=map.name }
                 }
             }
         }
@@ -27,9 +28,9 @@ class MainViewModel(view:BaseView) : BaseViewModel<MainViewModel.MainViewState, 
         Http
     }
     class MainViewState:BaseState() {
-        val isLoading: Boolean = false
+        var hasNext: Boolean = true
         var int: String = ""
-        val text: String = ""
+        var text: String = ""
         val list: MutableList<String> = mutableListOf()
     }
 }

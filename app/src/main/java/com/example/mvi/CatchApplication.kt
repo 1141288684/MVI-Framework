@@ -13,9 +13,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class CatchApplication : CrashApplication() {
     override fun onCreate() {
         super.onCreate()
-        NetConfig.initialize("https://192.168.1.119:8000"){
+        NetConfig.initialize("https://test.koader.top:8000"){
             setSSLCertificate(resources.openRawResource(R.raw.media))
-            setConverter(GsonConvert())
+            setConverter(GsonConvert)
         }
 //        HttpUtils.init(applicationContext,
 //            GlobalConfig.BaseConfig(url = "https://192.168.1.119:8000",
