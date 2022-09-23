@@ -14,7 +14,7 @@ class CatchApplication : CrashApplication() {
     override fun onCreate() {
         super.onCreate()
         NetConfig.initialize("https://test.koader.top:8000"){
-            setSSLCertificate(resources.openRawResource(R.raw.media))
+//            setSSLCertificate(resources.openRawResource(R.raw.media))
             setConverter(GsonConvert)
         }
 //        HttpUtils.init(applicationContext,
