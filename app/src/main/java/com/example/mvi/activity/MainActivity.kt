@@ -16,6 +16,7 @@ import com.koader.arch.base.*
 import org.koin.android.ext.android.inject
 import org.koin.core.context.startKoin
 import com.example.mvi.viewmodel.MainViewModel.*
+import com.koader.jrouter.JRouter
 
 //@AndroidEntryPoint
 //class MainActivity : BaseActivityMV<MineViewModel>(){
@@ -94,7 +95,10 @@ class MainActivity : BaseActivity<MainViewState, MainAction>(){
             Button(onClick = { doAction(MainAction.Http) }) {
                 Text(text = "测试框架及https通信")
             }
-            Text(text = state.text)
+//            Text(text = state.text)
+            Button(onClick = { JRouter.startActivity("route/second") }) {
+                Text(text = "测试全局路由-fragment")
+            }
         }
     }
 }
