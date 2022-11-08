@@ -90,8 +90,8 @@ afterEvaluate {
                 url = releasesRepoUrl
 //                url = snapshotsRepoUrl
                 credentials{
-                        username '62e1fe6018a4006f4acbb145'
-                        password '86LicryJ]Fq_'
+                        username aliyun_username
+                        password aliyun_password
                 }
             }
         }

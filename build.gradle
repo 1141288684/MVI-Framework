@@ -1,6 +1,8 @@
 buildscript {
     ext {
         compose_version = '1.1.1'
+        aliyun_username='62e1fe6018a4006f4acbb145'
+        aliyun_password='86LicryJ]Fq_'
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
