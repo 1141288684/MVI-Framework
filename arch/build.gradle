@@ -8,7 +8,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        minSdk 29
+        minSdk 28
         targetSdk 32
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -105,7 +105,7 @@ afterEvaluate {
                 // You can then customize attributes of the publication as shown below.
                 groupId = 'com.koader.arch'
                 artifactId = 'arch'
-                version = '1.1'
+                version = '1.2'
             }
             // Creates a Maven publication called “debug”.
 //            debug(MavenPublication) {

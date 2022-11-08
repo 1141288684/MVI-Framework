@@ -17,54 +17,7 @@ import org.koin.android.ext.android.inject
 import org.koin.core.context.startKoin
 import com.example.mvi.viewmodel.MainViewModel.*
 import com.koader.jrouter.JRouter
-
-//@AndroidEntryPoint
-//class MainActivity : BaseActivityMV<MineViewModel>(){
-//
-////    override fun onCreate(savedInstanceState: Bundle?) {
-////        super.onCreate(savedInstanceState)
-////
-////        setContent {
-////            Surface(modifier = Modifier.fillMaxSize()) {
-////                Column {
-////                    Build()
-////                }
-////            }
-////        }
-////    }
-//
-//    @Composable
-//    override fun Build() {
-//        var v by Var("")
-//        val l = mutableStateListOf<String>()
-//        Column {
-////            Text(text = v?:"")
-////            Button(onClick = { v += 1 }) {
-////                Text(text = "测试")
-////            }
-//            Button(onClick = { l.add("1") }) {
-//                Text(text = "测试")
-//            }
-//            LazyColumn{
-//                items(l){
-//                    Text(text = it)
-//                }
-//            }
-//        }
-//    }
-//
-//    override fun setViewModel(): MineViewModel {
-//        return MineViewModel(this)
-//    }
-//
-//    override fun getContext(): Context {
-//        return this
-//    }
-//
-//    override fun getLifeCycle(): Lifecycle {
-//        return lifecycle
-//    }
-//}
+import org.koin.android.ext.koin.androidContext
 
 class MainActivity : BaseActivity<MainViewState, MainAction>(){
 
@@ -72,20 +25,24 @@ class MainActivity : BaseActivity<MainViewState, MainAction>(){
     override fun setViewModel(): BaseViewModel<MainViewState, MainAction> {
         startKoin {
             modules(MainModule)
+            androidContext(this@MainActivity)
+            addWithContext<BaseView>(this@MainActivity)
         }
-        return MainViewModel(this)
+        return inject<MainViewModel>().value
     }
 
     @Composable
     override fun Build(state:MainViewState) {
         requestPermissions(arrayOf(Manifest.permission.INTERNET),1)
         Column {
-            Text(text = user.name)
+            Text(text = state.text)
             Text(text = state.int)
 
             LazyColumn(content = {
                 items(state.list){
-                    Text(text = it)
+                    Button(onClick = { doAction(MainAction.Selected(state.list.indexOf(it))) }) {
+                        Text(text = it)
+                    }
                 }
                 item { Text(text = if (state.hasNext) "加载更多" else "没有更多数据") }
             })
@@ -96,7 +53,7 @@ class MainActivity : BaseActivity<MainViewState, MainAction>(){
                 Text(text = "测试框架及https通信")
             }
 //            Text(text = state.text)
-            Button(onClick = { JRouter.startActivity("route/second") }) {
+            Button(onClick = { JRouter.with("id","测试").startActivity("route/second") }) {
                 Text(text = "测试全局路由-fragment")
             }
         }

@@ -2,6 +2,7 @@ package com.example.mvi
 
 import com.drake.net.NetConfig
 import com.drake.net.okhttp.setConverter
+import com.example.mvi.activity.SecFragment
 import com.example.mvi.activity.SecondActivity
 import com.koader.arch.CrashApplication
 import com.koader.arch.utils.GsonConvert
@@ -15,7 +16,7 @@ class CatchApplication : CrashApplication() {
 //            setSSLCertificate(resources.openRawResource(R.raw.media))
             setConverter(GsonConvert)
         }
-        JRouter.init(this, Route(path = "route/second", route = SecondActivity::class))
+        JRouter.init(this, Route(path = "route/second", route = SecondActivity::class),Route("fragment",SecFragment::class))
 //        HttpUtils.init(applicationContext,
 //            GlobalConfig.BaseConfig(url = "https://192.168.1.119:8000",
 //                domain = "192.168.1.119",

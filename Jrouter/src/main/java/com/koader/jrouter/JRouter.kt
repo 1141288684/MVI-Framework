@@ -1,10 +1,16 @@
 package com.koader.jrouter
 
+import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.content.ServiceConnection
+import android.os.Bundle
 import androidx.fragment.app.Fragment
+import java.text.NumberFormat.Field.INTEGER
+import java.util.*
 import java.util.concurrent.Executor
+import javax.xml.xpath.XPathConstants.STRING
+import kotlin.collections.HashMap
 import kotlin.reflect.KClass
 
 object JRouter {
@@ -26,8 +32,8 @@ object JRouter {
     }
 
     fun startActivity(path: String){
-        apps.startActivity(Intent(apps.applicationContext,this.routes[path]?.java).apply { flags =
-            Intent.FLAG_ACTIVITY_NEW_TASK })
+        apps.startActivity(Intent(apps.applicationContext,this.routes[path]?.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK })
     }
 
     fun bindService(path: String,serviceConnection: ServiceConnection,flags:Int){
@@ -54,6 +60,14 @@ object JRouter {
         return f
     }
 
+    fun inject(a:Any){
+        a.javaClass.declaredFields.forEach {
+            val n=it.getAnnotation(Just::class.java)?.name
+            it.isAccessible=true
+            it.set(a,data[n])
+            data.remove(n)
+        }
+    }
 }
 
 interface RouteInterface{

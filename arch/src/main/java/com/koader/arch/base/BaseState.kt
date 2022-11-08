@@ -6,6 +6,6 @@ abstract class BaseState {
     }
 
     override fun hashCode(): Int {
-        return javaClass.hashCode()
+        return super.hashCode()
     }
 }

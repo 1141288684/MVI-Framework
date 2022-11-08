@@ -1,21 +1,36 @@
 package com.example.mvi.activity
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.koader.arch.base.BaseActivity
-import com.koader.arch.base.BaseState
-import com.koader.arch.base.BaseView
-import com.koader.arch.base.BaseViewModel
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.fragment.app.FragmentContainerView
+import com.example.mvi.di.SecondModule
+import com.koader.arch.base.*
+import com.koader.jrouter.JRouter
 import com.koader.jrouter.Just
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class SecondActivity: BaseActivity<SecondState, SecondViewModel.SecondAction>() {
+
+    @Just("id")
+    lateinit var id:String
+
     override fun setViewModel(): BaseViewModel<SecondState, SecondViewModel.SecondAction> {
+        JRouter.inject(this)
+//        startKoin {
+//            modules(SecondModule)
+//            androidContext(this@SecondActivity)
+//            addWithContext<BaseView>(this@SecondActivity)
+//        }
         return SecondViewModel(this)
     }
 
     @Composable
     override fun Build(state: SecondState) {
-        Text(text = "打开新页面")
+        Text(text = "打开新页面$id")
     }
 }
 
