@@ -14,3 +14,5 @@
 .cxx
 local.properties
 settings.gradle
+build.gradle
+.gitignore
