@@ -64,7 +64,7 @@ afterEvaluate {
                 // You can then customize attributes of the publication as shown below.
                 groupId = 'com.koader.jrouter'
                 artifactId = 'Jrouter'
-                version = '1.0'
+                version = '1.1'
             }
         }
     }

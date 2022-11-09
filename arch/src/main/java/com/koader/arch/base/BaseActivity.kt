@@ -12,7 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.Lifecycle
 
-abstract class BaseActivity<S:BaseState,A> :ComponentActivity(),BaseView{
+abstract class BaseActivity<S:BaseState,A:BaseAction> :ComponentActivity(),BaseView{
     private lateinit var viewModel: BaseViewModel<S, A>
     abstract fun setViewModel():BaseViewModel<S,A>
 

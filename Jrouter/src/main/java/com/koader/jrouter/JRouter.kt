@@ -4,7 +4,9 @@ import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.content.ServiceConnection
+import android.os.Build
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import java.text.NumberFormat.Field.INTEGER
 import java.util.*
@@ -40,7 +42,8 @@ object JRouter {
         apps.bindService(Intent(apps.applicationContext,this.routes[path]?.java),serviceConnection,flags)
     }
 
-    fun bindService(path: String,flags:Int,executor:Executor,serviceConnection: ServiceConnection){
+    @RequiresApi(Build.VERSION_CODES.Q)
+    fun bindService(path: String, flags:Int, executor:Executor, serviceConnection: ServiceConnection){
         apps.bindService(Intent(apps.applicationContext,this.routes[path]?.java)
             ,flags,executor,serviceConnection)
     }
@@ -62,11 +65,17 @@ object JRouter {
 
     fun inject(a:Any){
         a.javaClass.declaredFields.forEach {
+            println(it.name)
             val n=it.getAnnotation(Just::class.java)?.name
             it.isAccessible=true
             it.set(a,data[n])
             data.remove(n)
         }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun <T>set(name:String):Lazy<T>{
+        return lazy { data[name] as T }
     }
 }
 

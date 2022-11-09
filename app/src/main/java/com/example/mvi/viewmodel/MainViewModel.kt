@@ -40,7 +40,7 @@ class MainViewModel(view:BaseView) : BaseViewModel<MainViewModel.MainViewState, 
             }
         }
     }
-    sealed class MainAction{
+    sealed class MainAction:BaseAction{
         object Add:MainAction()
         object Http: MainAction()
         data class Selected(val index:Int):MainAction()

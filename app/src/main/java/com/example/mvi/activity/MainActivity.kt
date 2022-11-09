@@ -35,7 +35,7 @@ class MainActivity : BaseActivity<MainViewState, MainAction>(){
     override fun Build(state:MainViewState) {
         requestPermissions(arrayOf(Manifest.permission.INTERNET),1)
         Column {
-            Text(text = state.text)
+            Text(text = user.name)
             Text(text = state.int)
 
             LazyColumn(content = {
