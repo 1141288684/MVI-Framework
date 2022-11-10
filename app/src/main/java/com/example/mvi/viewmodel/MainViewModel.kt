@@ -5,7 +5,6 @@ import com.drake.net.Get
 import com.drake.net.utils.scopeNetLife
 import com.example.mvi.activity.MainActivity
 import com.koader.arch.base.*
-import com.kunminx.architecture.domain.dispatch.MviDispatcherKTX
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -34,7 +33,9 @@ class MainViewModel(view:BaseView) : BaseViewModel<MainViewModel.MainViewState, 
                 }
             }
             MainAction.clearText->{
-                setState { it.text="" }
+                setState { it.text=""
+                it.list.removeAll(it.list)
+                }
             }
             else -> {
                 if (action is MainAction.Selected){
