@@ -12,7 +12,7 @@ import com.koader.jrouter.JRouter
 class CatchApplication : CrashApplication() {
     override fun onCreate() {
         super.onCreate()
-        NetConfig.initialize("https://test.koader.top:8000"){
+        NetConfig.initialize("http://192.168.1.119:8000"){
 //            setSSLCertificate(resources.openRawResource(R.raw.media))
             setConverter(GsonConvert)
         }

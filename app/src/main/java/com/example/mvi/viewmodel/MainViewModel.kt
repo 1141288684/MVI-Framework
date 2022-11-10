@@ -6,6 +6,7 @@ import com.drake.net.utils.scopeNetLife
 import com.example.mvi.activity.MainActivity
 import com.koader.arch.base.*
 import com.kunminx.architecture.domain.dispatch.MviDispatcherKTX
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -32,6 +33,9 @@ class MainViewModel(view:BaseView) : BaseViewModel<MainViewModel.MainViewState, 
                     setState { it.text=map.name }
                 }
             }
+            MainAction.clearText->{
+                setState { it.text="" }
+            }
             else -> {
                 if (action is MainAction.Selected){
 //                    setState { copy(text = action.index.toString()) }
@@ -40,10 +44,11 @@ class MainViewModel(view:BaseView) : BaseViewModel<MainViewModel.MainViewState, 
             }
         }
     }
-    sealed class MainAction:BaseAction{
-        object Add:MainAction()
-        object Http: MainAction()
-        data class Selected(val index:Int):MainAction()
+    sealed interface MainAction:BaseAction{
+        object Add:MainAction
+        object Http: MainAction
+        object clearText:MainAction
+        data class Selected(val index:Int):MainAction
     }
     class MainViewState (
         var hasNext: Boolean = true,

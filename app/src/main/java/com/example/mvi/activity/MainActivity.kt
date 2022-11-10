@@ -35,7 +35,7 @@ class MainActivity : BaseActivity<MainViewState, MainAction>(){
     override fun Build(state:MainViewState) {
         requestPermissions(arrayOf(Manifest.permission.INTERNET),1)
         Column {
-            Text(text = user.name)
+            Text(text = state.text)
             Text(text = state.int)
 
             LazyColumn(content = {
@@ -55,6 +55,9 @@ class MainActivity : BaseActivity<MainViewState, MainAction>(){
 //            Text(text = state.text)
             Button(onClick = { JRouter.with("id","测试").startActivity("route/second") }) {
                 Text(text = "测试全局路由-fragment")
+            }
+            Button(onClick = { doAction(MainAction.clearText) }) {
+                Text(text = "清空")
             }
         }
     }
